@@ -22,7 +22,6 @@ from langchain_core.runnables.config import (
 def create_chat_completion_router(
     tiny_di_container: TinyDIContainer,
     event_adapter: callable = lambda event: None,
-    invoke_config: Optional[RunnableConfig] = None
 ):
     chat_completion_router = APIRouter(prefix="/chat")
 
@@ -40,7 +39,7 @@ def create_chat_completion_router(
 
         agent = agent_factory.create_agent(dto=create_agent_dto)
 
-        adapter = ChatCompletionCompatibleAPI.from_agent(agent, create_agent_dto.model, event_adapter=event_adapter, invoke_config=invoke_config)
+        adapter = ChatCompletionCompatibleAPI.from_agent(agent[0], create_agent_dto.model, event_adapter=event_adapter, invoke_config=agent[1])
 
         response_factory = HttpStreamResponseAdapter()
         if request.stream is True:
