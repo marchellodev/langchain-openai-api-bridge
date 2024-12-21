@@ -55,9 +55,8 @@ def create_openai_chat_completion_router(
     tiny_di_container: TinyDIContainer,
     prefix: str = "",
     event_adapter: callable = lambda event: None,
-    invoke_config: Optional[RunnableConfig] = None
 ):
-    router = create_chat_completion_router(tiny_di_container=tiny_di_container, event_adapter=event_adapter, invoke_config=invoke_config)
+    router = create_chat_completion_router(tiny_di_container=tiny_di_container, event_adapter=event_adapter)
     open_ai_router = APIRouter(prefix=f"{prefix}/openai/v1")
     open_ai_router.include_router(router)
 
