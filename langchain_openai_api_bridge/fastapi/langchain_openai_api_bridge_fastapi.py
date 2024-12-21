@@ -37,6 +37,9 @@ from langchain_openai_api_bridge.fastapi.internal_agent_factory import (
     InternalAgentFactory,
 )
 from langchain_core.runnables import Runnable
+from langchain_core.runnables.config import (
+    RunnableConfig,
+)
 
 
 class LangchainOpenaiApiBridgeFastAPI(LangchainOpenaiApiBridge):
@@ -97,9 +100,9 @@ class LangchainOpenaiApiBridgeFastAPI(LangchainOpenaiApiBridge):
 
         self.app.include_router(assistant_router)
 
-    def bind_openai_chat_completion(self, prefix: str = "", event_adapter: callable = lambda event: None) -> None:
+    def bind_openai_chat_completion(self, prefix: str = "", event_adapter: callable = lambda event: None, invoke_config: Optional[RunnableConfig] = None) -> None:
         chat_completion_router = create_openai_chat_completion_router(
-            self.tiny_di_container, prefix=prefix, event_adapter=event_adapter
+            self.tiny_di_container, prefix=prefix, event_adapter=event_adapter, invoke_config=invoke_config
         )
 
         self.app.include_router(chat_completion_router)
