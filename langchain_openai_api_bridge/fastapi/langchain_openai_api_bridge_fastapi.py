@@ -48,7 +48,7 @@ class LangchainOpenaiApiBridgeFastAPI(LangchainOpenaiApiBridge):
         app: FastAPI,
         agent_factory_provider: Union[
             Callable[[], BaseAgentFactory],
-            Callable[[CreateAgentDto], Runnable],
+            Callable[[CreateAgentDto], tuple[Runnable, Optional[RunnableConfig]]],
             BaseAgentFactory,
         ],
     ) -> None:
