@@ -35,9 +35,12 @@ def create_chat_completion_router(
             model=request.model,
             api_key=api_key,
             temperature=request.temperature,
+            request=request
         )
 
         agent = agent_factory.create_agent(dto=create_agent_dto)
+        if agent[2] is not None:
+            request = agent[2]
 
         adapter = ChatCompletionCompatibleAPI.from_agent(agent[0], create_agent_dto.model, event_adapter=event_adapter, invoke_config=agent[1])
 

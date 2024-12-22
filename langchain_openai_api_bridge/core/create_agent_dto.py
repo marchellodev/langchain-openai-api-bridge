@@ -1,4 +1,5 @@
 from typing import Optional
+from langchain_openai_api_bridge.core.types.openai.chat_completion import OpenAIChatCompletionRequest
 from pydantic import BaseModel
 
 
@@ -9,3 +10,4 @@ class CreateAgentDto(BaseModel):
     max_tokens: Optional[int] = None
     assistant_id: Optional[str] = ""
     thread_id: Optional[str] = ""
+    request: Optional[OpenAIChatCompletionRequest] = None
